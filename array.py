@@ -6,13 +6,14 @@ def parse_scores_from_string(s):
     parts = [p.strip() for p in s.replace(',', ' ').split()]
     scores = []
     for p in parts:
-        if p == '': 
+        if p == '':
             continue
         try:
             scores.append(float(p))
         except ValueError:
             print(f"warning: skipping non-numeric token: {p}")
     return scores
+
 def read_scores():
     # Priority: CLI args > SCORES env var > scores.txt > interactive prompt
     if len(sys.argv) > 1:
@@ -27,6 +28,7 @@ def read_scores():
     # interactive prompt
     raw = input("Enter scores separated by spaces or commas: ")
     return parse_scores_from_string(raw)
+
 def main():
     scores = read_scores()
     if not scores:
@@ -42,6 +44,11 @@ def main():
     print(f"Sum: {total}")
     print(f"Average: {avg}")
 
+    # local branch outputs (max & min)
+    if len(scores) > 0:
+        print("\n=== local branch output (max & min) ===")
+        print(f"Maximum: {max(scores)}")
+        print(f"Minimum: {min(scores)}")
+
 if __name__ == "__main__":
     main()
-
